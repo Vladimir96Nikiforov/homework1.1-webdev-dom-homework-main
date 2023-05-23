@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Проект "Комменты"</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <ul class="comments" id="comments">
+        <li class="comment">
+          <div class="comment-header">
+            <div>Глеб Фокин</div>
+            <div>12.02.22 12:18</div>
+          </div>
+          <div class="comment-body">
+            <div class="comment-text">
+              Это будет первый комментарий на этой странице
+            </div>
+          </div>
+          <div class="comment-footer">
+            <div class="likes">
+              <span class="likes-counter" id="likes-counter">3</span>
+              <button class="like-button" id="likeButton"></button>
+            </div>
+          </div>
+        </li>
+        <li class="comment">
+          <div class="comment-header">
+            <div>Варвара Н.</div>
+            <div>13.02.22 19:22</div>
+          </div>
+          <div class="comment-body">
+            <div class="comment-text">
+              Мне нравится как оформлена эта страница! ❤
+            </div>
+          </div>
+          <div class="comment-footer">
+            <div class="likes">
+              <span class="likes-counter">75</span>
+              <button class="like-button -active-like"></button>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div class="add-form">
+        <input
+          type="text"
+          class="add-form-name"
+          placeholder="Введите ваше имя"
+          id="add-form-name";
+        />
+        <textarea
+          type="textarea"
+          class="add-form-text"
+          placeholder="Введите ваш коментарий"
+          rows="4"
+          id="add-form-text"
+        ></textarea>
+        <div class="add-form-row">
+          <button class="add-form-button" id="add-button">Написать</button>
+          <button class="add-form-button" id="delete-button">Удалить</button>
+        </div>
+      </div>
+    </div>
+    
+  </body>
+
+  <script>
+    "use strict";
+    const name = document.getElementById("add-form-name");
+    const commentText = document.getElementById("add-form-text");
+    const comments = document.getElementById("comments");
+    const  buttonElement = document.getElementById("add-button");
+    const likes = document.getElementById("likes-counter");
+    const likeButton = document.getElementById("likeButton");
+    const deleteButton = document.getElementById("delete-button");
+
+    let date = new Date();
+    let output = String(date.getDate()) + '.' + String(date.getMonth() + 1) + '.' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes();
+
+    console.log(comments.innerHTML);
+
+    buttonElement.addEventListener('click', () => {
+      if (name.value === "")
+        {
+          name.style.backgroundColor = '#ff7d7d';
+          return;
+        }
+      if (commentText.value === "")
+        {
+          commentText.style.backgroundColor = '#ff7d7d';
+          return;
+        }
+      const oldComments = comments.innerHTML;
+      comments.innerHTML = oldComments + `<li class="comment">
+          <div class="comment-header">
+            <div>${name.value} </div>
+            <div>${output}</div>
+          </div>
+          <div class="comment-body">
+            <div class="comment-text">
+              ${commentText.value}
+            </div>
+          </div>
+          <div class="comment-footer">
+            <div class="likes">
+              <span class="likes-counter" id="likes-counter">0</span>
+              <button class="like-button" id="likeButton"></button>
+            </div>
+          </div>`
+    });
+
+    deleteButton.addEventListener('click', () =>{
+      const deleteLast = lastIndexOf.innerHTML.remove;
+    });  
+  </script>
+</html>
