@@ -23,6 +23,7 @@
             <div class="likes">
               <span class="likes-counter" id="likes-counter">3</span>
               <button class="like-button" id="likeButton"></button>
+              <button class="add-form-button delet-btn" id="delete-button">Удалить</button>
             </div>
           </div>
         </li>
@@ -40,6 +41,7 @@
             <div class="likes">
               <span class="likes-counter">75</span>
               <button class="like-button -active-like"></button>
+              <button class="add-form-button delet-btn" id="delete-button">Удалить</button>
             </div>
           </div>
         </li>
@@ -60,11 +62,10 @@
         ></textarea>
         <div class="add-form-row">
           <button class="add-form-button" id="add-button">Написать</button>
-          <button class="add-form-button" id="delete-button">Удалить</button>
         </div>
       </div>
     </div>
-    
+  
   </body>
 
   <script>
@@ -76,7 +77,11 @@
     const likes = document.getElementById("likes-counter");
     const likeButton = document.getElementById("likeButton");
     const deleteButton = document.getElementById("delete-button");
+    
 
+    addEventListener();
+
+    
     let date = new Date();
     let output = String(date.getDate()) + '.' + String(date.getMonth() + 1) + '.' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes();
 
@@ -108,12 +113,20 @@
             <div class="likes">
               <span class="likes-counter" id="likes-counter">0</span>
               <button class="like-button" id="likeButton"></button>
+              <button class="add-form-button delet-btn" id="delete-button">Удалить</button>
             </div>
           </div>`
     });
 
     deleteButton.addEventListener('click', () =>{
-      const deleteLast = lastIndexOf.innerHTML.remove;
+      const deletebuttonElements = document.querySelectorAll(".delet-btn");
+      for(const deletebuttonElement of deletebuttonElements){
+        deletebuttonElement.addEventListener('click', () => {
+          alert('Удаление');
+        });
+      }
     });  
+    addEventListener();
+
   </script>
 </html>
