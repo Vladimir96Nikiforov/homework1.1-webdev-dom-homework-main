@@ -20,10 +20,9 @@
             </div>
           </div>
           <div class="comment-footer">
-            <div class="likes">
+            <div class="likes" data-like="3">
               <span class="likes-counter" id="likes-counter">3</span>
               <button class="like-button" id="likeButton"></button>
-              <button class="add-form-button delet-btn" id="delete-button">Удалить</button>
             </div>
           </div>
         </li>
@@ -38,10 +37,9 @@
             </div>
           </div>
           <div class="comment-footer">
-            <div class="likes">
-              <span class="likes-counter">75</span>
-              <button class="like-button -active-like"></button>
-              <button class="add-form-button delet-btn" id="delete-button">Удалить</button>
+            <div class="likes" data-like="75">
+              <span class="likes-counter" id="likes-counter">75</span>
+              <button class="like-button -active-like" id="likeButton"></button>
             </div>
           </div>
         </li>
@@ -62,10 +60,11 @@
         ></textarea>
         <div class="add-form-row">
           <button class="add-form-button" id="add-button">Написать</button>
+          <button class="add-form-button" id="delete-button">Удалить</button>
         </div>
       </div>
     </div>
-  
+    
   </body>
 
   <script>
@@ -74,16 +73,36 @@
     const commentText = document.getElementById("add-form-text");
     const comments = document.getElementById("comments");
     const  buttonElement = document.getElementById("add-button");
-    const likes = document.getElementById("likes-counter");
-    const likeButton = document.getElementById("likeButton");
-    const deleteButton = document.getElementById("delete-button");
-    
+    // const likes = document.getElementById("likes-counter");
+    // const likeButton = document.getElementById("likeButton");
+    // const deleteButton = document.getElementById("delete-button");
 
-    addEventListener();
+    const likeElements = document.querySelectorAll(".likes");
+    const likesContainer = document.getElementById('likes-container')
 
-    
     let date = new Date();
     let output = String(date.getDate()) + '.' + String(date.getMonth() + 1) + '.' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes();
+
+
+
+
+    console.log(comments.innerHTML);
+
+const likeEventListeners = () =>{
+for (const likeElement of likeElements) {
+  likeElement.addEventListener('click', () => {
+    console.log(1);
+    const getLike = Number(likeElement.dataset.like)+1;
+    document.getElementsByClassName('likes-counter')[0].textContent = getLike;
+    // document.getElementsByClassName('likes-button')[0].classList.add("-active-like");
+    console.log(getLike);
+    return
+  });
+}
+}
+likeEventListeners()
+
+
 
     console.log(comments.innerHTML);
 
@@ -110,23 +129,20 @@
             </div>
           </div>
           <div class="comment-footer">
-            <div class="likes">
-              <span class="likes-counter" id="likes-counter">0</span>
+            <div class="likes" data-like="3">
+              <span class="likes-counter" id="likes-counter">3</span>
               <button class="like-button" id="likeButton"></button>
-              <button class="add-form-button delet-btn" id="delete-button">Удалить</button>
             </div>
           </div>`
+        
     });
 
-    deleteButton.addEventListener('click', () =>{
-      const deletebuttonElements = document.querySelectorAll(".delet-btn");
-      for(const deletebuttonElement of deletebuttonElements){
-        deletebuttonElement.addEventListener('click', () => {
-          alert('Удаление');
-        });
-      }
-    });  
-    addEventListener();
+    // deleteButton.addEventListener('click', () =>{
+    //   const deleteLast = lastIndexOf.innerHTML.remove;
+    // });  
 
+    //Лайки количество
+    likeEventListeners()
+    likeButtonListeners()
   </script>
 </html>
