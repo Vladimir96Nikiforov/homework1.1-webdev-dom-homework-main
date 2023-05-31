@@ -20,7 +20,7 @@
             </div>
           </div>
           <div class="comment-footer">
-            <div class="likes" data-like="3">
+            <div class="likes" id="likes-container" data-like="3">
               <span class="likes-counter" id="likes-counter">3</span>
               <button class="like-button" id="likeButton"></button>
             </div>
@@ -37,7 +37,7 @@
             </div>
           </div>
           <div class="comment-footer">
-            <div class="likes" data-like="75">
+            <div class="likes" id="likes-container" data-like="75">
               <span class="likes-counter" id="likes-counter">75</span>
               <button class="like-button -active-like" id="likeButton"></button>
             </div>
@@ -83,26 +83,46 @@
     let date = new Date();
     let output = String(date.getDate()) + '.' + String(date.getMonth() + 1) + '.' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes();
 
-
-
-
     console.log(comments.innerHTML);
+
+    const likesUl = [{
+      likes: 3,
+    },
+    {
+      likes: 75,
+    }
+  ]
+
+
+
+  const renderLikes = () => {
+    const likesUlHTML = likesUl.map((like) =>{
+      return `<div class="likes" data-like="${likesUl.likes}">
+              <span class="likes-counter" id="likes-counter">${likesUl.likes}</span>
+              <button class="like-button" id="likeButton"></button>
+            </div>`;
+    })
+    .join("");
+    likesContainer.innerHTML = likesUlHTML;
+  };
+  renderLikes()
+
 
 const likeEventListeners = () =>{
 for (const likeElement of likeElements) {
   likeElement.addEventListener('click', () => {
     console.log(1);
-    const getLike = Number(likeElement.dataset.like)+1;
-    document.getElementsByClassName('likes-counter')[0].textContent = getLike;
+    // const getLike = Number(likeElement.dataset.like)+1;
+    // document.getElementsByClassName('likes-counter')[0].textContent = getLike;
+
     // document.getElementsByClassName('likes-button')[0].classList.add("-active-like");
-    console.log(getLike);
-    return
+
+    // console.log(getLike);
+    // return
   });
 }
 }
 likeEventListeners()
-
-
 
     console.log(comments.innerHTML);
 
@@ -137,12 +157,17 @@ likeEventListeners()
         
     });
 
+
+
+
     // deleteButton.addEventListener('click', () =>{
     //   const deleteLast = lastIndexOf.innerHTML.remove;
     // });  
 
     //Лайки количество
-    likeEventListeners()
-    likeButtonListeners()
+
+    // likeEventListeners()
+    // likeButtonListeners()
+    
   </script>
 </html>
