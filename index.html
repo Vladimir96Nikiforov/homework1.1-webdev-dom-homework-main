@@ -154,7 +154,7 @@ renderLikes()
           commentText.style.backgroundColor = '#ff7d7d';
           return;
         }
-      const oldComments = comments.innerHTML;
+      const oldComments = comments.innerHTML.replaceAll("<", "&lt").replaceAll(">", "&gt");
       comments.innerHTML = oldComments + `<li class="comment">
           <div class="comment-header">
             <div>${name.value} </div>
