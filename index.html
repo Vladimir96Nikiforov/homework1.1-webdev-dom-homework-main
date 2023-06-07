@@ -8,8 +8,8 @@
 
   <body>
     <div class="container">
-      <ul class="comments" id="comments">
-        <li class="comment">
+       <ul class="comments" id="comments">
+       <li class="comment">
           <div class="comment-header">
             <div>Глеб Фокин</div>
             <div>12.02.22 12:18</div>
@@ -20,10 +20,10 @@
             </div>
           </div>
           <div class="comment-footer">
-            <!-- <div class="likes" data-like="3">
+            <div class="likes" data-like="3">
               <span class="likes-counter" id="likes-counter">3</span>
               <button class="like-button" id="likeButton"></button>
-            </div> -->
+            </div>
           </div>
         </li>
         <li class="comment">
@@ -37,10 +37,10 @@
             </div>
           </div>
           <div class="comment-footer">
-            <!-- <div class="likes" data-like="75">
+            <div class="likes" data-like="75">
               <span class="likes-counter" id="likes-counter">75</span>
               <button class="like-button -active-like" id="likeButton"></button>
-            </div> -->
+            </div>
           </div>
         </li>
       </ul>
@@ -49,7 +49,8 @@
           type="text"
           class="add-form-name"
           placeholder="Введите ваше имя"
-          id="add-form-name";
+          id="add-form-name"
+          ;
         />
         <textarea
           type="textarea"
@@ -64,7 +65,6 @@
         </div>
       </div>
     </div>
-    
   </body>
 
   <script>
@@ -72,114 +72,135 @@
     const name = document.getElementById("add-form-name");
     const commentText = document.getElementById("add-form-text");
     const comments = document.getElementById("comments");
-    const  buttonElement = document.getElementById("add-button");
+    const buttonElement = document.getElementById("add-button");
     // const likes = document.getElementById("likes-counter");
     // const likeButton = document.getElementById("likeButton");
     // const deleteButton = document.getElementById("delete-button");
 
-    const likeElements = document.querySelectorAll(".likes");
-    const likesContainer = document.getElementById('likes-container')
+    const likesContainer = document.getElementById("likes-container");
 
-    // let date = new Date();
-    // let output = String(date.getDate()) + '.' + String(date.getMonth() + 1) + '.' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes();
+
+
+
+    const people = [
+      {
+        name: "Глеб Фокин",
+        descr: "Это будет первый комментарий на этой странице",
+        likesAmount: 0,
+        isLike: false,
+        date: "12.02.22 12:18"
+      },
+      {
+        name: "Варвара Н.",
+        descr: "Мне нравится как оформлена эта страница! ❤",
+        likesAmount: 0,
+        isLike: false,
+        date: "13.02.22 19:22"
+      },
+    ];
 
 
 
     
-    const likesUl = [{
-      likes: Number(3),
-    },
-    {
-      likes: Number(75),
-    }
-  ]
+
+    let date = new Date();
+    let output =
+      String(date.getDate()) +
+      "." +
+      String(date.getMonth() + 1) +
+      "." +
+      date.getFullYear() +
+      " " +
+      date.getHours() +
+      ":" +
+      date.getMinutes();
 
 
-    console.log(comments.innerHTML);
 
 
-
-    const renderLikes = () => {
-    
-    let date = new Date();//испр даты 1
-    let output = String(date.getDate()) + '.' + String(date.getMonth() + 1) + '.' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes();
-
+      const renderLikes = () => {
+  
     const likesUlHTML = likesUl.map((like) =>{
-      return `<div class="likes" data-like="${likesUl.likes}">
-              <span class="likes-counter" id="likes-counter">${likesUl.likes}</span>
+      
+      return `
+      <div>${people.name}</div>
+            <div>${people.data}</div>
+          </div>
+          <div class="comment-body">
+            <div class="comment-text">
+              ${people.descr}
+            </div>
+          </div>
+          <div class="comment-footer">
+      <div class="likes" data-like="${people.likesAmount}">
+              <span class="likes-counter" id="likes-counter">${people.likesAmount}</span>
               <button class="like-button" id="likeButton"></button>
             </div>`;
     })
     .join("");
-    likesContainer.innerHTML = likesUlHTML;
+    comments.innerHTML = likesUlHTML;
   };
+ 
 
+    // console.log(comments.innerHTML);
 
+    // console.log(comments.innerHTML);
 
-
-const likeEventListeners = () =>{
-for (const likeElement of likeElements) {
-  likeElement.addEventListener('click', () => {
-    console.log(1);
-    const getLike = Number(likeElement.dataset.like)+1;
-    document.getElementsByClassName('likes-counter')[0].textContent = getLike;
-    // document.getElementsByClassName('likes-button')[0].classList.add("-active-like");
-    console.log(getLike);
-    return
-  });
-}
-
-}
-likeEventListeners()
-renderLikes()
-
-
-  
-
-// likeEventListeners()//испр1
-// renderLikes()
-
-
-
-    console.log(comments.innerHTML);
-
-    buttonElement.addEventListener('click', () => {
-      if (name.value === "")
-        {
-          name.style.backgroundColor = '#ff7d7d';
-          return;
-        }
-      if (commentText.value === "")
-        {
-          commentText.style.backgroundColor = '#ff7d7d';
-          return;
-        }
-      const oldComments = comments.innerHTML.replaceAll("<", "&lt").replaceAll(">", "&gt");
-      comments.innerHTML = oldComments + `<li class="comment">
-          <div class="comment-header">
-            <div>${name.value} </div>
-            <div>${output}</div>
-          </div>
-          <div class="comment-body">
-            <div class="comment-text">
-              ${commentText.value}
-            </div>
-          </div>
-          <div class="comment-footer">
-            <div class="likes" data-like="3">
-              <span class="likes-counter" id="likes-counter">3</span>
-              <button class="like-button" id="likeButton"></button>
-            </div>
-          </div>`
-        
+    buttonElement.addEventListener("click", () => {
+      if (name.value === "") {
+        name.style.backgroundColor = "#ff7d7d";
+        return;
+      }
+      if (commentText.value === "") {
+        commentText.style.backgroundColor = "#ff7d7d";
+        return;
+      }
+      const oldComments = comments.innerHTML;
+      comments.innerHTML =
+        oldComments +
+        `<li class="comment">
+              <div class="comment-header">
+                <div>${name.value} </div>
+                <div>${output}</div>
+              </div>
+              <div class="comment-body">
+                <div class="comment-text">
+                  ${commentText.value}
+                </div>
+              </div>
+              <div class="comment-footer">
+                <div class="likes" data-like="0">
+                  <span class="likes-counter" id="likes-counter">0</span>
+                  <button class="like-button" id="likeButton"></button>
+                </div>
+              </div>`;
+      likeEventListeners();
     });
 
-    // deleteButton.addEventListener('click', () =>{
-    //   const deleteLast = lastIndexOf.innerHTML.remove;
-    // });  
+    function likeEventListeners() {
+      const likeElements = document.querySelectorAll(".likes");
+      for (const likeElement of likeElements) {
+        likeElement.addEventListener("click", () => {
+          const index = likeElement.dataset.like;
+          console.log(index);
 
-    //Лайки количество
-    // likeEventListeners()
-    // likeButtonListeners()
+          const getLike = Number(likeElement.dataset.like) + 1;
+          likeElement.querySelector(".likes-counter").textContent = getLike;
+          likeElement
+            .querySelector(".like-button")
+            .classList.add("-active-like");
+
+
+              const breakLike = Number(likeElement.dataset.like) - 1;
+          likeElement.querySelector("-active-like").textContent = breakLike;
+          likeElement
+            .querySelector(".like-button")
+            .classList.remove("-active-like");
+        });
+      }
+    }
+
+    likeEventListeners();
+    renderLikes();
   </script>
 </html>
