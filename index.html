@@ -7,15 +7,18 @@
   </head>
 
   <body>
-    <div class="container">
-       <ul class="comments" id="comments">
+    <div class="container" >
+       <ul class="comments" id="comments" >
+
+
+
        <!-- <li class="comment">
           <div class="comment-header">
             <div>Глеб Фокин</div>
             <div>12.02.22 12:18</div>
           </div>
           <div class="comment-body">
-            <div class="comment-text">
+            <div class="comment-text" id="answer">
               Это будет первый комментарий на этой странице
             </div>
           </div>
@@ -25,14 +28,14 @@
               <button class="like-button" id="likeButton"></button>
             </div>
           </div>
-        </li> -->
-        <!-- <li class="comment">
+        </li> 
+        <li class="comment">
           <div class="comment-header">
             <div>Варвара Н.</div>
             <div>13.02.22 19:22</div>
           </div>
-          <div class="comment-body">
-            <div class="comment-text">
+          <div class="comment-body" >
+            <div class="comment-text" id="answer">
               Мне нравится как оформлена эта страница! ❤
             </div>
           </div>
@@ -43,6 +46,9 @@
             </div>
           </div>
         </li> -->
+
+
+
       </ul>
       <div class="add-form">
         <input
@@ -67,6 +73,10 @@
     </div>
   </body>
 
+
+
+
+
   <script>
     "use strict";
     const name = document.getElementById("add-form-name");
@@ -80,6 +90,9 @@
     const likesContainer = document.getElementById("likes-container");
 
 
+    // const answer = document.getElementsById("answer")
+
+    // const answer = document.getElementsByClassName("comment-text")
 
 
     const people = [
@@ -103,22 +116,11 @@
 
     
 
-    let date = new Date();
-    let output =
-      String(date.getDate()) +
-      "." +
-      String(date.getMonth() + 1) +
-      "." +
-      date.getFullYear() +
-      " " +
-      date.getHours() +
-      ":" +
-      date.getMinutes();
 
 
 
-      // likesUl
-      const renderLikes = () => {
+
+      const renderComments = () => {
   
     const likesUlHTML = people.map((like) =>{
       
@@ -128,7 +130,7 @@
             <div>${people.data}</div>
           </div>
           <div class="comment-body">
-            <div class="comment-text">
+            <div class="comment-text" id="answer">
               ${people.descr}
             </div>
           </div>
@@ -137,13 +139,14 @@
               <span class="likes-counter" id="likes-counter">${people.likesAmount}</span>
               <button class="like-button" id="likeButton"></button>
             </div>
-          </li>`;
+          </li>
+          `;
             
     })
     .join("");
     comments.innerHTML = likesUlHTML;
   };
-  
+  renderComments()
 
     // console.log(comments.innerHTML);
 
@@ -158,26 +161,49 @@
         commentText.style.backgroundColor = "#ff7d7d";
         return;
       }
-      const oldComments = comments.innerHTML;
-      comments.innerHTML =
-        oldComments +
-        `<li class="comment">
-              <div class="comment-header">
-                <div>${name.value} </div>
-                <div>${output}</div>
-              </div>
-              <div class="comment-body">
-                <div class="comment-text">
-                  ${commentText.value}
-                </div>
-              </div>
-              <div class="comment-footer">
-                <div class="likes" data-like="0">
-                  <span class="likes-counter" id="likes-counter">0</span>
-                  <button class="like-button" id="likeButton"></button>
-                </div>
-              </div>`;
+
+      let date = new Date();
+    let output =
+      String(date.getDate()) +
+      "." +
+      String(date.getMonth() + 1) +
+      "." +
+      date.getFullYear() +
+      " " +
+      date.getHours() +
+      ":" +
+      date.getMinutes();
+
+
+      people.push({
+        name: name.value,
+        descr: commentText.value,
+        likesAmount: 0,
+        isLike: false,
+        date: output
+      })
+      // Этот код вроде как можно закоментить
+      // const oldComments = comments.innerHTML;
+      // comments.innerHTML =
+      //   oldComments +
+      //   `<li class="comment">
+      //         <div class="comment-header">
+      //           <div>${name.value} </div>
+      //           <div>${output}</div>
+      //         </div>
+      //         <div class="comment-body">
+      //           <div class="comment-text" id="answer">
+      //             ${commentText.value}
+      //           </div>
+      //         </div>
+      //         <div class="comment-footer">
+      //           <div class="likes" data-like="0">
+      //             <span class="likes-counter" id="likes-counter">0</span>
+      //             <button class="like-button" id="likeButton"></button>
+      //           </div>
+      //         </div>`;
       likeEventListeners();
+      renderComments(); 
     });
 
     function likeEventListeners() {
@@ -203,7 +229,97 @@
       }
     }
 
+
+
+
+
+
+
+
+    // answer.addEventListener("click", () => {
+         
+      
+      
+      // if (name.value === "") {
+      //   name.style.backgroundColor = "#ff7d7d";
+      //   return;
+      // }
+      // if (commentText.value === "") {
+      //   commentText.style.backgroundColor = "#ff7d7d";
+      //   return;
+      // }
+      // const oldComments = comments.innerHTML;
+      // comments.innerHTML =
+      //   oldComments +
+      //   `<div class="add-form">
+      //   <input
+      //     type="text"
+      //     class="add-form-name"
+      //     placeholder="Введите ваше имя"
+      //     id="add-form-name"
+      //     ;
+      //   />
+      //   <textarea
+      //     type="textarea"
+      //     class="add-form-text"
+      //     placeholder="Введите ваш коментарий"
+      //     rows="4"
+      //     id="add-form-text"
+      //   >ooo</textarea>
+      //   <div class="add-form-row">
+      //     <button class="add-form-button" id="add-button">Написать</button>
+      //     <button class="add-form-button" id="delete-button">Удалить</button>
+      //   </div>`;
+
+
+
+
+    //   answerEventListeners();
+    // });
+
+    //     function answerEventListeners() {
+
+
+      //      const answerElements = document.querySelectorAll("answer");
+      // for (const answerElement of answerElements) {
+      //   answerElement.addEventListener("click", () => {
+      //     const answerIndex = answerElement.dataset.like;
+      //     console.log(answerIndex);
+      //   });
+      // }
+
+          //  answer.addEventListener("click", () => {
+          //   alert("hw");
+
+
+            
+          // const index = likeElement.dataset.like;
+          // console.log(index);
+
+          // const getLike = Number(likeElement.dataset.like) + 1;
+          // likeElement.querySelector(".likes-counter").textContent = getLike;
+          // likeElement
+          //   .querySelector(".like-button")
+          //   .classList.add("-active-like");
+
+
+          //     const breakLike = Number(likeElement.dataset.like) - 1;
+          // likeElement.querySelector("-active-like").textContent = breakLike;
+          // likeElement
+          //   .querySelector(".like-button")
+          //   .classList.remove("-active-like");
+          // }
+    
+
+//           const answer = document.getElementsByClassName("comment-text");
+// for (let i=0 ; i<answer.length; i++) {
+//   answer[i].addEventListener("click", function(){
+//           console.log("hi");
+//   });
+// }
+
+    // answerEventListeners()
     likeEventListeners();
-    renderLikes();
+    renderComments();
   </script>
 </html>
