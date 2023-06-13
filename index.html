@@ -94,7 +94,7 @@
 
     // const answer = document.getElementsByClassName("comment-text")
 
-
+    
     const people = [
       {
         name: "Глеб Фокин",
@@ -122,21 +122,21 @@
 
       const renderComments = () => {
   
-    const likesUlHTML = people.map((like) =>{
+    const likesUlHTML = people.map((comment) =>{
       
       return `
        <li class="comment">
-      <div>${people.name}</div>
-            <div>${people.data}</div>
+      <div>${comment.name}</div>
+            <div>${comment.date}</div>
           </div>
           <div class="comment-body">
             <div class="comment-text" id="answer">
-              ${people.descr}
+              ${comment.descr}
             </div>
           </div>
           <div class="comment-footer">
-      <div class="likes" data-like="${people.likesAmount}">
-              <span class="likes-counter" id="likes-counter">${people.likesAmount}</span>
+      <div class="likes" data-like="${comment.likesAmount}">
+              <span class="likes-counter" id="likes-counter">${comment.likesAmount}</span>
               <button class="like-button" id="likeButton"></button>
             </div>
           </li>
@@ -147,6 +147,7 @@
     comments.innerHTML = likesUlHTML;
   };
   renderComments()
+  
 
     // console.log(comments.innerHTML);
 
@@ -320,6 +321,6 @@
 
     // answerEventListeners()
     likeEventListeners();
-    renderComments();
+    // renderComments();
   </script>
 </html>
