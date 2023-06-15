@@ -230,6 +230,8 @@
             .classList.add("-active-like")
             people[index].likesAmount++
             people[index].isLiked = true;
+            people[index].likesAmount--
+            people[index].isLiked = false;
 
           //   if(element.classList.contains(-active-like)){
           //     const breakLike = Number(likeElement.dataset.like) - 1;
@@ -241,39 +243,30 @@
         });
       }
     }
-    if(people[index].isLiked = true){
-      function likeEventListeners1() {
-      const likeElements1 = document.querySelectorAll(".likes");
-      for (const likeElement1 of likeElements1) {
-        likeElement1.addEventListener("click", () => {
-          const index1 = likeElement1.dataset.like1;
-          console.log(index1);
-          // if(element.classList.contains(like-button)){
-          //   const getLike = Number(likeElement.dataset.like) + 1;
-          // likeElement.querySelector(".likes-counter").textContent = getLike;
-          // likeElement
-          //   .querySelector(".like-button")
-          //   .classList.add("-active-like");
-          // }
-          const getLike1 = Number(likeElement1.dataset.like1) - 1;
-          likeElement1.querySelector(".likes-counter").textContent = getLike1;
-          likeElement1
-            .querySelector("-active-like")
-            .classList.remove("-active-like")
-            people[index].likesAmount-1
-            people[index].isLiked = fals;
+    renderComments(); 
 
-          //   if(element.classList.contains(-active-like)){
-          //     const breakLike = Number(likeElement.dataset.like) - 1;
-          // likeElement.querySelector(".likes-counter -active-like").textContent = breakLike;
-          // likeElement
-          //   .querySelector(".like-button")
-          //   .classList.remove("-active-like");
-          //   }
-        });
-      }
-    }
-  }
+
+
+  //   if(people[index].isLiked = true){
+  //     function likeEventListeners1() {
+  //     const likeElements1 = document.querySelectorAll(".likes");
+  //     for (const likeElement1 of likeElements1) {
+  //       likeElement1.addEventListener("click", () => {
+  //         const index1 = likeElement1.dataset.like1;
+  //         console.log(index1);
+
+  //         const getLike1 = Number(likeElement1.dataset.like1) - 1;
+  //         likeElement1.querySelector(".likes-counter").textContent = getLike1;
+  //         likeElement1
+  //           .querySelector("-active-like")
+  //           .classList.remove("-active-like")
+  //           people[index].likesAmount--
+  //           people[index].isLiked = false;
+
+  //       });
+  //     }
+  //   }
+  // }
 
 
 
