@@ -223,15 +223,21 @@
           //   .querySelector(".like-button")
           //   .classList.add("-active-like");
           // }
-          const getLike = Number(likeElement.dataset.like) + 1;
-          likeElement.querySelector(".likes-counter").textContent = getLike;
-          likeElement
-            .querySelector(".like-button")
-            .classList.add("-active-like")
+
+
+
+
+
+          // const getLike = Number(likeElement.dataset.like) + 1;
+          // likeElement.querySelector(".likes-counter").textContent = getLike;
+          // likeElement
+          //   .querySelector(".like-button")
+          //   .classList.add("-active-like")
             people[index].likesAmount++
             people[index].isLiked = true;
             people[index].likesAmount--
             people[index].isLiked = false;
+            renderComments();
 
           //   if(element.classList.contains(-active-like)){
           //     const breakLike = Number(likeElement.dataset.like) - 1;
