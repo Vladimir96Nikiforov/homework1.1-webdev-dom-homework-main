@@ -84,7 +84,7 @@
     const comments = document.getElementById("comments");
     const buttonElement = document.getElementById("add-button");
     // const likes = document.getElementById("likes-counter");
-    // const likeButton = document.getElementById("likeButton");
+    const likeButton = document.getElementById("likeButton");
     // const deleteButton = document.getElementById("delete-button");
 
     const likesContainer = document.getElementById("likes-container");
@@ -122,25 +122,25 @@
 
       const renderComments = () => {
   
-    const likesUlHTML = people.map((comment) =>{
-      
-      return `
-       <li class="comment">
-      <div>${comment.name}</div>
-            <div>${comment.date}</div>
-          </div>
-          <div class="comment-body">
-            <div class="comment-text" id="answer">
-              ${comment.descr}
-            </div>
-          </div>
-          <div class="comment-footer">
-      <div class="likes" data-like="${comment.likesAmount}">
-              <span class="likes-counter" id="likes-counter">${comment.likesAmount}</span>
-              <button class="like-button" id="likeButton"></button>
-            </div>
-          </li>
-          `;
+const likesUlHTML = people.map((comment, index) =>{
+  
+  return `
+   <li class="comment">
+  <div>${comment.name}</div>
+        <div>${comment.date}</div>
+      </div>
+      <div class="comment-body">
+        <div class="comment-text" id="answer">
+          ${comment.descr}
+        </div>
+      </div>
+      <div class="comment-footer">
+  <div class="likes" data-like="${index}">
+          <span class="likes-counter" id="likes-counter">${comment.likesAmount}</span>
+          <button class="like-button" id="likeButton"></button>
+        </div>
+      </li>
+      `;
             
     })
     .join("");
@@ -233,15 +233,25 @@
           // likeElement
           //   .querySelector(".like-button")
           //   .classList.add("-active-like")
-          if(people.isLike === false){
+          // function likeIco(){
+            if(people[index].isLike === true){
+            likeButton.classList.add("-active-like");}
+            else {
+              likeButton.classList.remove("-active-like");
+            }
+            
+          // }
+          if(people[index].isLike === false){
             people[index].likesAmount++
             people[index].isLiked = true;
             }
-            else if (people.isLike){
+            else {
             people[index].likesAmount--
             people[index].isLiked = false;
             }
+            
             renderComments();
+            // likeIco()
 
           //   if(element.classList.contains(-active-like)){
           //     const breakLike = Number(likeElement.dataset.like) - 1;
