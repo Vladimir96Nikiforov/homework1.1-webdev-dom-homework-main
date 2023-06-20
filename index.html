@@ -137,23 +137,19 @@ const likesUlHTML = people.map((comment, index) =>{
       <div class="comment-footer">
   <div class="likes" data-like="${index}">
           <span class="likes-counter" id="likes-counter">${comment.likesAmount}</span>
-          <button class="like-button" id="likeButton"></button>
+          <button class="like-button ${ comment.isLike ? '-active-like' : '' }" id="likeButton"></button>
         </div>
       </li>
       `;
-            
+            //${ comment.isLike ? '-active-like' : '' } это тот же if
     })
     .join("");
     comments.innerHTML = likesUlHTML;
     likeEventListeners();
-    // likeEventListeners1()
   };
   renderComments()
-  
 
-    // console.log(comments.innerHTML);
 
-    // console.log(comments.innerHTML);
 
     buttonElement.addEventListener("click", () => {
       if (name.value === "") {
@@ -185,28 +181,8 @@ const likesUlHTML = people.map((comment, index) =>{
         isLike: false,
         date: output
       })
-      // Этот код вроде как можно закоментить
-      // const oldComments = comments.innerHTML;
-      // comments.innerHTML =
-      //   oldComments +
-      //   `<li class="comment">
-      //         <div class="comment-header">
-      //           <div>${name.value} </div>
-      //           <div>${output}</div>
-      //         </div>
-      //         <div class="comment-body">
-      //           <div class="comment-text" id="answer">
-      //             ${commentText.value}
-      //           </div>
-      //         </div>
-      //         <div class="comment-footer">
-      //           <div class="likes" data-like="0">
-      //             <span class="likes-counter" id="likes-counter">0</span>
-      //             <button class="like-button" id="likeButton"></button>
-      //           </div>
-      //         </div>`;
+      
       likeEventListeners();
-      // likeEventListeners1()
       renderComments(); 
     });
 
@@ -216,170 +192,22 @@ const likesUlHTML = people.map((comment, index) =>{
         likeElement.addEventListener("click", () => {
           const index = likeElement.dataset.like;
           console.log(index);
-          // if(element.classList.contains(like-button)){
-          //   const getLike = Number(likeElement.dataset.like) + 1;
-          // likeElement.querySelector(".likes-counter").textContent = getLike;
-          // likeElement
-          //   .querySelector(".like-button")
-          //   .classList.add("-active-like");
-          // }
 
 
-
-
-
-          // const getLike = Number(likeElement.dataset.like) + 1;
-          // likeElement.querySelector(".likes-counter").textContent = getLike;
-          // likeElement
-          //   .querySelector(".like-button")
-          //   .classList.add("-active-like")
-          // function likeIco(){
-            if(people[index].isLike === true){
-            likeButton.classList.add("-active-like");}
-            else {
-              likeButton.classList.remove("-active-like");
-            }
-            
-          // }
           if(people[index].isLike === false){
             people[index].likesAmount++
-            people[index].isLiked = true;
+            people[index].isLike = true;
             }
             else {
             people[index].likesAmount--
-            people[index].isLiked = false;
+            people[index].isLike = false;
             }
-            
+            console.log(people[index].likesAmount);
             renderComments();
-            // likeIco()
-
-          //   if(element.classList.contains(-active-like)){
-          //     const breakLike = Number(likeElement.dataset.like) - 1;
-          // likeElement.querySelector(".likes-counter -active-like").textContent = breakLike;
-          // likeElement
-          //   .querySelector(".like-button")
-          //   .classList.remove("-active-like");
-          //   }
         });
       }
     }
     renderComments(); 
-
-
-
-  //   if(people[index].isLiked = true){
-  //     function likeEventListeners1() {
-  //     const likeElements1 = document.querySelectorAll(".likes");
-  //     for (const likeElement1 of likeElements1) {
-  //       likeElement1.addEventListener("click", () => {
-  //         const index1 = likeElement1.dataset.like1;
-  //         console.log(index1);
-
-  //         const getLike1 = Number(likeElement1.dataset.like1) - 1;
-  //         likeElement1.querySelector(".likes-counter").textContent = getLike1;
-  //         likeElement1
-  //           .querySelector("-active-like")
-  //           .classList.remove("-active-like")
-  //           people[index].likesAmount--
-  //           people[index].isLiked = false;
-
-  //       });
-  //     }
-  //   }
-  // }
-
-
-
-
-
-
-
-
-    // answer.addEventListener("click", () => {
-         
-      
-      
-      // if (name.value === "") {
-      //   name.style.backgroundColor = "#ff7d7d";
-      //   return;
-      // }
-      // if (commentText.value === "") {
-      //   commentText.style.backgroundColor = "#ff7d7d";
-      //   return;
-      // }
-      // const oldComments = comments.innerHTML;
-      // comments.innerHTML =
-      //   oldComments +
-      //   `<div class="add-form">
-      //   <input
-      //     type="text"
-      //     class="add-form-name"
-      //     placeholder="Введите ваше имя"
-      //     id="add-form-name"
-      //     ;
-      //   />
-      //   <textarea
-      //     type="textarea"
-      //     class="add-form-text"
-      //     placeholder="Введите ваш коментарий"
-      //     rows="4"
-      //     id="add-form-text"
-      //   >ooo</textarea>
-      //   <div class="add-form-row">
-      //     <button class="add-form-button" id="add-button">Написать</button>
-      //     <button class="add-form-button" id="delete-button">Удалить</button>
-      //   </div>`;
-
-
-
-
-    //   answerEventListeners();
-    // });
-
-    //     function answerEventListeners() {
-
-
-      //      const answerElements = document.querySelectorAll("answer");
-      // for (const answerElement of answerElements) {
-      //   answerElement.addEventListener("click", () => {
-      //     const answerIndex = answerElement.dataset.like;
-      //     console.log(answerIndex);
-      //   });
-      // }
-
-          //  answer.addEventListener("click", () => {
-          //   alert("hw");
-
-
-            
-          // const index = likeElement.dataset.like;
-          // console.log(index);
-
-          // const getLike = Number(likeElement.dataset.like) + 1;
-          // likeElement.querySelector(".likes-counter").textContent = getLike;
-          // likeElement
-          //   .querySelector(".like-button")
-          //   .classList.add("-active-like");
-
-
-          //     const breakLike = Number(likeElement.dataset.like) - 1;
-          // likeElement.querySelector("-active-like").textContent = breakLike;
-          // likeElement
-          //   .querySelector(".like-button")
-          //   .classList.remove("-active-like");
-          // }
-    
-
-//           const answer = document.getElementsByClassName("comment-text");
-// for (let i=0 ; i<answer.length; i++) {
-//   answer[i].addEventListener("click", function(){
-//           console.log("hi");
-//   });
-// }
-
-    // answerEventListeners()
     likeEventListeners();
-    // likeEventListeners1()
-    // renderComments();
   </script>
 </html>
