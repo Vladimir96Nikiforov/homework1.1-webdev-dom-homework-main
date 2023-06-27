@@ -125,7 +125,7 @@ const likesUlHTML = people.map((comment, index) =>{
         <div>${comment.date}</div>
       </div>
       <div class="comment-body">
-        <div class="comment-text" id="answer">
+        <div class="comment-text" id="answer" data-index=${index}>
           ${comment.descr}
         </div>
       </div>
@@ -141,6 +141,7 @@ const likesUlHTML = people.map((comment, index) =>{
     .join("");
     comments.innerHTML = likesUlHTML;
     likeEventListeners();
+    commentEventListeners()
   };
   renderComments()
 
@@ -170,8 +171,8 @@ const likesUlHTML = people.map((comment, index) =>{
 
 
       people.push({
-        name: name.value,
-        descr: commentText.value,
+        name: name.value.replaceAll("<","&lt;").replaceAll(">","&gt;"),
+        descr: commentText.value.replaceAll("<","&lt;").replaceAll(">","&gt;"),
         likesAmount: 0,
         isLike: false,
         date: output
@@ -210,10 +211,12 @@ const likesUlHTML = people.map((comment, index) =>{
       for (const addFormText of addFormTexts){
       addFormText.addEventListener("click", (event) =>{
         event.stopPropagation()
-        // console.log((event));
-        // renderComments();
+        console.log(addFormText.dataset.index);
         console.log(event);
-        alert('ffff')
+        // console.log(people[addFormText.index].descr);
+        // document.getElementById('add-form-text').value = people[addFormText.index].descr;
+        document.getElementById('add-form-text').value = ">" + people[addFormText.dataset.index].descr + ",";
+
       })
     }
   }
