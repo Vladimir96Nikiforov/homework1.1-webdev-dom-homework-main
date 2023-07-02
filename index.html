@@ -178,9 +178,74 @@ const likesUlHTML = people.map((comment, index) =>{
         date: output
       })
       
+
+
+
+
+
+
+
+
+// Выкидываем все на сервер API Post
+  const fetchPromise = fetch(
+      'https://wedev-api.sky.pro/api/v1/Vladimir-Nikiforov/comments',
+      {
+        method: "POST",
+        body: JSON.stringify ({
+        text:commentText.value,
+      })
+    });
+
+fetchPromise.then((response) => {
+  console.log(response);
+  const jsonPromise = response.json()
+  jsonPromise.then((responseData) => {
+    console.log(responseData);
+     people = responseData.comments; //comments это ключ массива в документации
+
+        // Получаем с сервера API Get
+          const fetchPromiseGet = fetch(
+                    'https://wedev-api.sky.pro/api/v1/Vladimir-Nikiforov/comments',
+                    {
+                      method: "GET"
+                    }
+              );
+              fetchPromiseGet.then((response) => {
+                console.log(response);
+                const jsonPromiseGet = response.json()
+                jsonPromiseGet.then((responseData) => {
+                  console.log(responseData);
+                  people = responseData.comments; //comments это ключ массива в документации
+                  renderComments()
+                });
+              });
+
+
+
+     renderComments()
+  });
+});
+
+
+
+
+
+
       likeEventListeners();
       renderComments(); 
     });
+
+
+
+
+
+
+
+
+
+
+
+
 
     function likeEventListeners() {
       const likeElements = document.querySelectorAll(".likes");
@@ -223,44 +288,9 @@ const likesUlHTML = people.map((comment, index) =>{
 
 
 
-  // Выкидываем все на сервер API Post
-  const fetchPromise = fetch(
-      'https://wedev-api.sky.pro/api/v1/Vladimir-Nikiforov/comments',
-      {
-        method: "POST",
-        body: JSON.stringify ({
-        text:commentText.value,
-      })
-    });
-
-fetchPromise.then((response) => {
-  console.log(response);
-  const jsonPromise = response.json()
-  jsonPromise.then((responseData) => {
-    console.log(responseData);
-     people = responseData.comments; //comments это ключ массива в документации
-     renderComments()
-  });
-});
+  
 
 
-// Получаем с сервера API Get
-const fetchPromiseGet = fetch(
-      'https://wedev-api.sky.pro/api/v1/Vladimir-Nikiforov/comments',
-      {
-        method: "GET"
-      }
-);
-
-fetchPromiseGet.then((response) => {
-  console.log(response);
-  const jsonPromiseGet = response.json()
-  jsonPromiseGet.then((responseData) => {
-    console.log(responseData);
-     people = responseData.comments; //comments это ключ массива в документации
-     renderComments()
-  });
-});
 
 
 
