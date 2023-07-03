@@ -170,13 +170,13 @@ const likesUlHTML = people.map((comment, index) =>{
       date.getMinutes();
 
 
-      people.push({
-        name: name.value.replaceAll("<","&lt;").replaceAll(">","&gt;"),
-        descr: commentText.value.replaceAll("<","&lt;").replaceAll(">","&gt;"),
-        likesAmount: 0,
-        isLike: false,
-        date: output
-      })
+      // people.push({
+      //   name: name.value.replaceAll("<","&lt;").replaceAll(">","&gt;"),
+      //   descr: commentText.value.replaceAll("<","&lt;").replaceAll(">","&gt;"),
+      //   likesAmount: 0,
+      //   isLike: false,
+      //   date: output
+      // })
       
 
 
@@ -201,7 +201,7 @@ fetchPromise.then((response) => {
   const jsonPromise = response.json()
   jsonPromise.then((responseData) => {
     console.log(responseData);
-     people = responseData.comments; //comments это ключ массива в документации
+    //  people = responseData.comments; //comments это ключ массива в документации
 
         // Получаем с сервера API Get
           const fetchPromiseGet = fetch(
