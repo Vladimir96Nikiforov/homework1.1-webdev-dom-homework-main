@@ -193,6 +193,7 @@ const likesUlHTML = people.map((comment, index) =>{
         method: "POST",
         body: JSON.stringify ({
         text:commentText.value,
+        name:name.value,
       })
     });
 
