@@ -90,7 +90,7 @@
 
 
     
-    const people = [
+    let people = [
       {
         name: "Глеб Фокин",
         descr: "Это будет первый комментарий на этой странице",
@@ -194,8 +194,8 @@ const likesUlHTML = people.map((comment, index) =>{
         body: JSON.stringify ({
         text:commentText.value,
         name:name.value,
-      })
-    });
+      })   
+     });
 
 fetchPromise.then((response) => {
   console.log(response);
