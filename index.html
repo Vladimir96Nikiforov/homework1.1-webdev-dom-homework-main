@@ -199,7 +199,7 @@ const likesUlHTML = people.map((comment, index) =>{
       })   
      });
 
-function getAPI(){
+getAPI()
 
   fetchPromise.then((response) => {
     console.log(response);
@@ -209,6 +209,7 @@ function getAPI(){
       //  people = responseData.comments; //comments это ключ массива в документации
 
           // Получаем с сервера API Get
+          function getAPI(){
             const fetchPromiseGet = fetch(
                       'https://wedev-api.sky.pro/api/v1/Vladimir-Nikiforov/comments',
                       {
@@ -225,13 +226,15 @@ function getAPI(){
                   });
                 });
 
+          };
+
 
 
      renderComments()
   });
 });
-};
-getAPI()
+
+// getAPI()
 
 
 
