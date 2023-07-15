@@ -122,6 +122,7 @@ const likesUlHTML = people.map((comment, index) =>{
         </div>
       </li>
       `;
+      // <button class="like-button ${ comment.isLike ? '-active-like' : '' }" id="likeButton"></button>
             //${ comment.isLike ? '-active-like' : '' } это тот же if
     })
     .join("");
@@ -244,14 +245,17 @@ const likesUlHTML = people.map((comment, index) =>{
 
 
           if(people[index].isLike === false){
-            people[index].likesAmount++
+            // people[index].likesAmount++
+            people[index].likes++
             people[index].isLike = true;
             }
             else {
-            people[index].likesAmount--
+            // people[index].likesAmount--
+            people[index].likes--
             people[index].isLike = false;
             }
-            console.log(people[index].likesAmount);
+            // console.log(people[index].likesAmount);
+            console.log(people[index].likes);
             renderComments();
         });
       }
