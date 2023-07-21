@@ -144,13 +144,15 @@ const likesUlHTML = people.map((comment, index) =>{
       );
       fetchPromiseGet.then((response) => {
         console.log(response);
-        const jsonPromiseGet = response.json()
-        jsonPromiseGet.then((responseData) => {
+        return response.json()
+
+      })
+      .then((responseData) => {
           console.log(responseData);
           people = responseData.comments; //comments это ключ массива в документации
           renderComments()
         });
-      });
+
 
     };
 
@@ -191,8 +193,9 @@ const likesUlHTML = people.map((comment, index) =>{
 
 
 
-
-
+//Отключаем кнопку, пока идет загрузка запроса, чтобы пользователь с медленным интернетом видел
+buttonElement.disabled = true;
+buttonElement.textContent = 'Элемент добавляется...';
 // Выкидываем все на сервер API Post
   const fetchPromise = fetch(
       'https://wedev-api.sky.pro/api/v1/Vladimir-Nikiforov/comments',
@@ -201,18 +204,27 @@ const likesUlHTML = people.map((comment, index) =>{
         body: JSON.stringify ({
         text:commentText.value,
         name:name.value,
-      })
-     });
+      }),
+     })
 
-
-  fetchPromise.then((response) => {
+     fetchPromise.then((response) => {
+  // fetchPromise.then((response) => {
     console.log(response);
-    const jsonPromise = response.json()
-    jsonPromise.then((responseData) => {
+    // const jsonPromise = response.json()
+    return response.json()
+  })
+    // jsonPromise.then((responseData) => {
+      .then((responseData) => {
       console.log(responseData);
       getAPI()
+      return responseData;
+  })
+      .then((data) => {
+        buttonElement.disabled = false;
+        buttonElement.textContent = 'Написать';
+
   });
-});
+
 
 // getAPI()
 
