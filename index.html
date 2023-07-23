@@ -136,6 +136,8 @@ const likesUlHTML = people.map((comment, index) =>{
 
     // Получаем с сервера API Get
     function getAPI(){
+      buttonElement.disabled = true;
+      buttonElement.textContent = 'Комментарии загружаются...';
       const fetchPromiseGet = fetch(
         'https://wedev-api.sky.pro/api/v1/Vladimir-Nikiforov/comments',
         {
@@ -151,7 +153,12 @@ const likesUlHTML = people.map((comment, index) =>{
           console.log(responseData);
           people = responseData.comments; //comments это ключ массива в документации
           renderComments()
-        });
+        })
+      .then((data) => {
+        buttonElement.disabled = false;
+        buttonElement.textContent = 'Написать';
+
+  });
 
 
     };
@@ -208,12 +215,9 @@ buttonElement.textContent = 'Элемент добавляется...';
      })
 
      fetchPromise.then((response) => {
-  // fetchPromise.then((response) => {
     console.log(response);
-    // const jsonPromise = response.json()
     return response.json()
   })
-    // jsonPromise.then((responseData) => {
       .then((responseData) => {
       console.log(responseData);
       getAPI()
@@ -225,27 +229,9 @@ buttonElement.textContent = 'Элемент добавляется...';
 
   });
 
-
-// getAPI()
-
-
-
-
-
       likeEventListeners();
       renderComments();
     });
-
-
-
-
-
-
-
-
-
-
-
 
 
     function likeEventListeners() {
@@ -257,23 +243,19 @@ buttonElement.textContent = 'Элемент добавляется...';
 
 
           if(people[index].isLiked === false){
-            // people[index].likesAmount++
             people[index].likes++
             people[index].isLiked = true;
             }
             else {
-            // people[index].likesAmount--
             people[index].likes--
             people[index].isLiked = false;
             }
-            // console.log(people[index].likesAmount);
             console.log(people[index].likes);
             renderComments();
         });
       }
     }
-//
-// console.log("object");
+
 
     function commentEventListeners(){
       const addFormTexts = document.querySelectorAll(".comment-text");
@@ -282,34 +264,14 @@ buttonElement.textContent = 'Элемент добавляется...';
         event.stopPropagation()
         console.log(addFormText.dataset.index);
         console.log(event);
-        // console.log(people[addFormText.index].descr);
-        // document.getElementById('add-form-text').value = people[addFormText.index].descr;
         document.getElementById('add-form-text').value = ">" + people[addFormText.dataset.index].descr + ",";
 
       })
     }
   }
 
-
-
-
-
-
-
-
-
   commentEventListeners()
 
-
-
-//
-
-//   document.querySelector('.comment-body').addEventListener('click', function(event) {
-//   let textItem = event.target.closest('.comment-text');
-//   if(textItem) {
-//     document.querySelector('#add-form-text').value = textItem.textContent;
-//   }
-// });
 
 
     renderComments();
@@ -319,22 +281,3 @@ buttonElement.textContent = 'Элемент добавляется...';
 
 
 
-
-
-
-<!-- document.querySelector('.text-wrap').addEventListener('click', function(event) {
-  let textItem = event.target.closest('.text-item');
-  if(textItem) {
-    document.querySelector('#input').value = textItem.textContent;
-  }
-});
-<div class="text-wrap">
-    <div class="text-item">Текст 1</div>
-    <div class="text-item">Текст 2</div>
-    <div class="text-item">Текст 3</div>
-    <div class="text-item">Текст 4</div>
-</div>
-
-<div class="input-wrap">
-    <input id="input" type="text" value="Текст 1">
-</div> -->
