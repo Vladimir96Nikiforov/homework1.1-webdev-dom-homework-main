@@ -145,8 +145,17 @@ const likesUlHTML = people.map((comment, index) =>{
         }
       );
       fetchPromiseGet.then((response) => {
+        
         console.log(response);
+
+        if (response.status === 201){
         return response.json()
+      }
+      else{
+        return Promise.reject("Сервер упал");
+      //Код который обрабатывает ошибку
+      throw new Error("Сервер упал");
+      }
 
       })
       .then((responseData) => {
@@ -158,6 +167,12 @@ const likesUlHTML = people.map((comment, index) =>{
         buttonElement.disabled = false;
         buttonElement.textContent = 'Написать';
 
+  })
+  .catch((error) => {
+    buttonElement.disabled = false;
+    buttonElement.textContent = 'Написать';
+    alert("Что-то пошло не так, попробуйте позже")
+    console.warn(error);
   });
 
 
@@ -211,12 +226,29 @@ buttonElement.textContent = 'Элемент добавляется...';
         body: JSON.stringify ({
         text:commentText.value,
         name:name.value,
+        forceError: true,//добавили при 500 ошибке
       }),
      })
 
      fetchPromise.then((response) => {
     console.log(response);
-    return response.json()
+      if (response.status === 201){
+        return response.json()
+      }
+      else{
+        return Promise.reject("Сервер упал");
+      //Код который обрабатывает ошибку
+      throw new Error("Сервер упал");
+      }
+
+  //   if (response.status === 500){
+  //     return Promise.reject("Сервер упал");
+  //     //Код который обрабатывает ошибку
+  //     throw new Error("Сервер упал");
+  //   }
+  //   else{
+  //   return response.json()
+  // }
   })
       .then((responseData) => {
       console.log(responseData);
@@ -226,8 +258,15 @@ buttonElement.textContent = 'Элемент добавляется...';
       .then((data) => {
         buttonElement.disabled = false;
         buttonElement.textContent = 'Написать';
+        commentText.value = "";
 
-  });
+  })
+  .catch((error) => {
+    buttonElement.disabled = false;
+    buttonElement.textContent = 'Написать';
+    alert("Что-то пошло не так, попробуйте позже")
+    console.warn(error);
+  })
 
       likeEventListeners();
       renderComments();
