@@ -154,11 +154,12 @@ const likesUlHTML = people.map((comment, index) =>{
       else{
         return Promise.reject("Сервер упал");
       //Код который обрабатывает ошибку
-      throw new Error("Сервер упал");
+      // throw new Error("Сервер упал");
       }
 
       })
       .then((responseData) => {
+        if(!response.ok) throw new Error("Сервер упал");
           console.log(responseData);
           people = responseData.comments; //comments это ключ массива в документации
           renderComments()
@@ -172,7 +173,7 @@ const likesUlHTML = people.map((comment, index) =>{
     buttonElement.disabled = false;
     buttonElement.textContent = 'Написать';
     alert("Что-то пошло не так, попробуйте позже")
-    console.warn(error);
+    // console.warn(error);
   });
 
 
@@ -226,7 +227,7 @@ buttonElement.textContent = 'Элемент добавляется...';
         body: JSON.stringify ({
         text:commentText.value,
         name:name.value,
-        forceError: true,//добавили при 500 ошибке
+        //forceError: true,//добавили при 500 ошибке
       }),
      })
 
@@ -235,10 +236,17 @@ buttonElement.textContent = 'Элемент добавляется...';
       if (response.status === 201){
         return response.json()
       }
+      else if (response.status === 400){
+        return Promise.reject("Ошибка 400. Исправьте опечатку");
+      }
+      else if (response.status === 500){
+        return Promise.reject("Ошибка 500. Ошибка сервера, пожалуйста, попробуйте позже");
+      }
       else{
-        return Promise.reject("Сервер упал");
+        return Promise.reject("Ошибка соединения, отсутствует подключение к сети");
+      //return Promise.reject("Сервер упал");
       //Код который обрабатывает ошибку
-      throw new Error("Сервер упал");
+      // throw new Error("Сервер упал");
       }
 
   //   if (response.status === 500){
@@ -265,7 +273,7 @@ buttonElement.textContent = 'Элемент добавляется...';
     buttonElement.disabled = false;
     buttonElement.textContent = 'Написать';
     alert("Что-то пошло не так, попробуйте позже")
-    console.warn(error);
+    // console.warn(error);
   })
 
       likeEventListeners();
