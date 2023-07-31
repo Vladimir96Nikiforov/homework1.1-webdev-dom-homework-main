@@ -146,18 +146,28 @@ const likesUlHTML = people.map((comment, index) =>{
       );
       fetchPromiseGet.then((response) => {
         
-        console.log(response);
-
-        if (response.status === 201){
-        return response.json()
-      }
-      else{
-        return Promise.reject("Сервер упал");
-      //Код который обрабатывает ошибку
-      // throw new Error("Сервер упал");
-      }
-
+          // console.log(response);
+        if(!response.ok) {
+          if(response.status === 500) {
+            throw new Error("Ошибка 500. Ошибка сервера, пожалуйста, попробуйте позже");
+          }
+        }
       })
+
+
+
+      //   if (response.status === 200){
+      //   return response.json()
+      // }
+      // else if (response.status === 500){
+      //   return Promise.reject("Ошибка 500. Ошибка сервера, пожалуйста, попробуйте позже");
+      // }
+      // else{
+      //   return Promise.reject("Сервер упал");
+      // //Код который обрабатывает ошибку
+      // // throw new Error("Сервер упал");
+      // }
+
       .then((responseData) => {
         if(!response.ok) throw new Error("Сервер упал");
           console.log(responseData);
@@ -172,8 +182,28 @@ const likesUlHTML = people.map((comment, index) =>{
   .catch((error) => {
     buttonElement.disabled = false;
     buttonElement.textContent = 'Написать';
-    alert("Что-то пошло не так, попробуйте позже")
+    // alert("Что-то пошло не так, попробуйте позже")
     // console.warn(error);
+
+
+
+          if (response.status === 200){
+        return response.json()
+      }
+      else if (response.status === 400){
+        return Promise.reject("Ошибка 400. Исправьте опечатку");
+      }
+      else if (response.status === 500){
+        return Promise.reject("Ошибка 500. Ошибка сервера, пожалуйста, попробуйте позже");
+      }
+      else{
+        return Promise.reject("Ошибка соединения, отсутствует подключение к сети");
+      //return Promise.reject("Сервер упал");
+      //Код который обрабатывает ошибку
+      // throw new Error("Сервер упал");
+      }
+
+
   });
 
 
@@ -231,23 +261,39 @@ buttonElement.textContent = 'Элемент добавляется...';
       }),
      })
 
+
+
+
+
+     fetchPromiseGet.then((response) => {
+        
+          // console.log(response);
+        if(!response.ok) {
+          if(response.status === 500) {
+            throw new Error("Ошибка 500. Ошибка сервера, пожалуйста, попробуйте позже");
+          }
+        }
+      })
+
+
+
+
      fetchPromise.then((response) => {
-    console.log(response);
-      if (response.status === 201){
-        return response.json()
-      }
-      else if (response.status === 400){
-        return Promise.reject("Ошибка 400. Исправьте опечатку");
-      }
-      else if (response.status === 500){
-        return Promise.reject("Ошибка 500. Ошибка сервера, пожалуйста, попробуйте позже");
-      }
-      else{
-        return Promise.reject("Ошибка соединения, отсутствует подключение к сети");
-      //return Promise.reject("Сервер упал");
-      //Код который обрабатывает ошибку
-      // throw new Error("Сервер упал");
-      }
+    // console.log(response);
+
+        if(!response.ok) {
+          if(response.status === 500) {
+            throw new Error("Ошибка 500. Ошибка сервера, пожалуйста, попробуйте позже");
+          }
+          else if(response.status === 400) {
+            throw new Error("Ошибка 400. Исправьте опечатку");
+          }
+        }
+      })
+
+
+
+
 
   //   if (response.status === 500){
   //     return Promise.reject("Сервер упал");
@@ -272,14 +318,33 @@ buttonElement.textContent = 'Элемент добавляется...';
   .catch((error) => {
     buttonElement.disabled = false;
     buttonElement.textContent = 'Написать';
-    alert("Что-то пошло не так, попробуйте позже")
+    // alert("Что-то пошло не так, попробуйте позже")
     // console.warn(error);
+
+
+
+          if (response.status === 201){
+        return response.json()
+      }
+      else if (response.status === 400){
+        return Promise.reject("Ошибка 400. Исправьте опечатку");
+      }
+      else if (response.status === 500){
+        return Promise.reject("Ошибка 500. Ошибка сервера, пожалуйста, попробуйте позже");
+      }
+      else{
+        return Promise.reject("Ошибка соединения, отсутствует подключение к сети");
+      //return Promise.reject("Сервер упал");
+      //Код который обрабатывает ошибку
+      // throw new Error("Сервер упал");
+      }
+
+
+
   })
 
       likeEventListeners();
       renderComments();
-    });
-
 
     function likeEventListeners() {
       const likeElements = document.querySelectorAll(".likes");
