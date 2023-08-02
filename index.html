@@ -151,7 +151,9 @@ const likesUlHTML = people.map((comment, index) =>{
           if(response.status === 500) {
             throw new Error("Ошибка 500. Ошибка сервера, пожалуйста, попробуйте позже");
           }
+
         }
+        return response.json()
       })
 
 
@@ -169,7 +171,7 @@ const likesUlHTML = people.map((comment, index) =>{
       // }
 
       .then((responseData) => {
-        if(!response.ok) throw new Error("Сервер упал");
+        // if(!response.ok) throw new Error("Сервер упал");
           console.log(responseData);
           people = responseData.comments; //comments это ключ массива в документации
           renderComments()
@@ -196,12 +198,16 @@ const likesUlHTML = people.map((comment, index) =>{
       else if (response.status === 500){
         return Promise.reject("Ошибка 500. Ошибка сервера, пожалуйста, попробуйте позже");
       }
-      else{
-        return Promise.reject("Ошибка соединения, отсутствует подключение к сети");
+
+      return response.json()
+
+      // else{
+      //   return Promise.reject("Ошибка соединения, отсутствует подключение к сети");
+
       //return Promise.reject("Сервер упал");
       //Код который обрабатывает ошибку
       // throw new Error("Сервер упал");
-      }
+      // }
 
 
   });
@@ -265,15 +271,16 @@ buttonElement.textContent = 'Элемент добавляется...';
 
 
 
-     fetchPromiseGet.then((response) => {
+    //  fetchPromiseGet.then((response) => {
         
-          // console.log(response);
-        if(!response.ok) {
-          if(response.status === 500) {
-            throw new Error("Ошибка 500. Ошибка сервера, пожалуйста, попробуйте позже");
-          }
-        }
-      })
+    //       // console.log(response);
+    //     if(!response.ok) {
+    //       if(response.status === 500) {
+    //         throw new Error("Ошибка 500. Ошибка сервера, пожалуйста, попробуйте позже");
+    //       }
+    //     }
+    //     return response.json()
+    //   })
 
 
 
@@ -289,6 +296,7 @@ buttonElement.textContent = 'Элемент добавляется...';
             throw new Error("Ошибка 400. Исправьте опечатку");
           }
         }
+        return response.json()
       })
 
 
@@ -328,9 +336,11 @@ buttonElement.textContent = 'Элемент добавляется...';
       }
       else if (response.status === 400){
         return Promise.reject("Ошибка 400. Исправьте опечатку");
+
       }
       else if (response.status === 500){
         return Promise.reject("Ошибка 500. Ошибка сервера, пожалуйста, попробуйте позже");
+
       }
       else{
         return Promise.reject("Ошибка соединения, отсутствует подключение к сети");
