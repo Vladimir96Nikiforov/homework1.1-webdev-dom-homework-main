@@ -144,17 +144,17 @@ const likesUlHTML = people.map((comment, index) =>{
           method: "GET"
         }
       );
-      fetchPromiseGet.then((response) => {
-        
-          // console.log(response);
-        if(!response.ok) {
-          if(response.status === 500) {
-            throw new Error("Ошибка 500. Ошибка сервера, пожалуйста, попробуйте позже");
+      fetchPromiseGet     
+        .then((response) => {
+          if (!response.ok) {
+            if (response.status === 500) {
+              /* текст ошибки */
+              throw new Error('Ошибка 500');
+            }
           }
-
-        }
-        return response.json()
-      })
+          /*возвращаем данные при успешном выполнеии запроса*/
+          return response.json();
+        })
 
 
 
@@ -171,7 +171,6 @@ const likesUlHTML = people.map((comment, index) =>{
       // }
 
       .then((responseData) => {
-        // if(!response.ok) throw new Error("Сервер упал");
           console.log(responseData);
           people = responseData.comments; //comments это ключ массива в документации
           renderComments()
@@ -184,33 +183,12 @@ const likesUlHTML = people.map((comment, index) =>{
   .catch((error) => {
     buttonElement.disabled = false;
     buttonElement.textContent = 'Написать';
-    // alert("Что-то пошло не так, попробуйте позже")
-    // console.warn(error);
-
-
-
-          if (response.status === 200){
-        return response.json()
-      }
-      else if (response.status === 400){
-        return Promise.reject("Ошибка 400. Исправьте опечатку");
-      }
-      else if (response.status === 500){
-        return Promise.reject("Ошибка 500. Ошибка сервера, пожалуйста, попробуйте позже");
-      }
-
-      return response.json()
-
-      // else{
-      //   return Promise.reject("Ошибка соединения, отсутствует подключение к сети");
-
-      //return Promise.reject("Сервер упал");
-      //Код который обрабатывает ошибку
-      // throw new Error("Сервер упал");
-      // }
-
-
+    if (error.message === 'Ошибка 500') {
+            alert('Ошибка при получении комментариев, пожалуйста, попробуйте позже');
+          }
+          console.error(error.message);
   });
+  /* тут возможна только 500 ошибка*/
 
 
     };
@@ -256,102 +234,61 @@ const likesUlHTML = people.map((comment, index) =>{
 buttonElement.disabled = true;
 buttonElement.textContent = 'Элемент добавляется...';
 // Выкидываем все на сервер API Post
-  const fetchPromise = fetch(
-      'https://wedev-api.sky.pro/api/v1/Vladimir-Nikiforov/comments',
-      {
-        method: "POST",
-        body: JSON.stringify ({
-        text:commentText.value,
-        name:name.value,
-        //forceError: true,//добавили при 500 ошибке
-      }),
-     })
-
-
-
-
-
-    //  fetchPromiseGet.then((response) => {
-        
-    //       // console.log(response);
-    //     if(!response.ok) {
-    //       if(response.status === 500) {
-    //         throw new Error("Ошибка 500. Ошибка сервера, пожалуйста, попробуйте позже");
-    //       }
-    //     }
-    //     return response.json()
-    //   })
-
-
-
-
-     fetchPromise.then((response) => {
-    // console.log(response);
-
-        if(!response.ok) {
-          if(response.status === 500) {
-            throw new Error("Ошибка 500. Ошибка сервера, пожалуйста, попробуйте позже");
-          }
-          else if(response.status === 400) {
-            throw new Error("Ошибка 400. Исправьте опечатку");
-          }
-        }
-        return response.json()
+const fetchPromise = fetch('https://wedev-api.sky.pro/api/v1/Vladimir-Nikiforov/comments', {
+        method: 'POST',
+        body: JSON.stringify({
+          text: commentText.value,
+          name: name.value,
+          forceError: true, //добавили при 500 ошибке
+        }),
       })
+        .then((response) => {
+          if (!response.ok) {
+            /* Имеет смысл задавать короткое название ошибок, так как дальше мы будем их разбирать */
+            if (response.status === 500) {
+              throw new Error('Ошибка 500');
+            } else if (response.status === 400) {
+              throw new Error('Ошибка 400');
+            }
+          }
 
+          return response.json();
+        })
+        .then((responseData) => {
+          console.log(responseData);
+          getAPI();
+        })
+        .then(() => {
+          buttonElement.disabled = false;
+          buttonElement.textContent = 'Написать';
+          commentText.value = '';
+        })
+        .catch((error) => {
+          buttonElement.disabled = false;
+          buttonElement.textContent = 'Написать';
 
+          /* расшифровка ошибки */
 
+          if (error.message === 'Ошибка 500') {
+            alert('Ошибка сервера, попробуйте позже');
+            /*return, ибо проверять другие ошибки уже будет не нужно */
+            return;
+          }
 
+          if (error.message === 'Ошибка 400') {
+            /*причина этой ошибки */
+            alert('Имя и комментарий должны быть не короче 3 символов');
+            return;
+          }
 
-  //   if (response.status === 500){
-  //     return Promise.reject("Сервер упал");
-  //     //Код который обрабатывает ошибку
-  //     throw new Error("Сервер упал");
-  //   }
-  //   else{
-  //   return response.json()
-  // }
-  })
-      .then((responseData) => {
-      console.log(responseData);
-      getAPI()
-      return responseData;
-  })
-      .then((data) => {
-        buttonElement.disabled = false;
-        buttonElement.textContent = 'Написать';
-        commentText.value = "";
+          alert('Кажется, у вас сломался интернет, попробуйте позже');
 
-  })
-  .catch((error) => {
-    buttonElement.disabled = false;
-    buttonElement.textContent = 'Написать';
-    // alert("Что-то пошло не так, попробуйте позже")
-    // console.warn(error);
+          console.log(error);
+        });
 
-
-
-          if (response.status === 201){
-        return response.json()
-      }
-      else if (response.status === 400){
-        return Promise.reject("Ошибка 400. Исправьте опечатку");
-
-      }
-      else if (response.status === 500){
-        return Promise.reject("Ошибка 500. Ошибка сервера, пожалуйста, попробуйте позже");
-
-      }
-      else{
-        return Promise.reject("Ошибка соединения, отсутствует подключение к сети");
-      //return Promise.reject("Сервер упал");
-      //Код который обрабатывает ошибку
-      // throw new Error("Сервер упал");
-      }
-
-
-
-  })
+      likeEventListeners();
+      renderComments();
+    });
 
       likeEventListeners();
       renderComments();
