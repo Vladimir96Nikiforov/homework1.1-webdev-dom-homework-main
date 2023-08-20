@@ -73,7 +73,7 @@
       </div>
     </div>
 
-    <script type="module" src="./date.js"></script>
+    <!-- <script type="module" src="./date.js"></script> -->
   </body>
 
 
@@ -82,7 +82,7 @@
 
   <script>
     "use strict";
-    import { output } from "./data.js"
+
     const name = document.getElementById("add-form-name");
     const commentText = document.getElementById("add-form-text");
     const comments = document.getElementById("comments");
@@ -92,6 +92,10 @@
     const addFormTexts = document.getElementById("add-form-text");
 
 
+
+  import {the} from './date.js';
+
+the()
 
     let people = [
     ];
@@ -207,28 +211,28 @@ const likesUlHTML = people.map((comment, index) =>{
         return;
       }
       
-      // <script type="module" src="./date.js">
+
       let date = new Date();
   
-    // let output =
-    //   String(date.getDate()) +
-    //   "." +
-    //   String(date.getMonth() + 1) +
-    //   "." +
-    //   date.getFullYear() +
-    //   " " +
-    //   date.getHours() +
-    //   ":" +
-    //   date.getMinutes();
+    let output =
+      String(date.getDate()) +z
+      "." +
+      String(date.getMonth() + 1) +
+      "." +
+      date.getFullYear() +
+      " " +
+      date.getHours() +
+      ":" +
+      date.getMinutes();
+    
 
-
-      // people.push({
-      //   name: name.value.replaceAll("<","&lt;").replaceAll(">","&gt;"),
-      //   descr: commentText.value.replaceAll("<","&lt;").replaceAll(">","&gt;"),
-      //   likesAmount: 0,
-      //   isLike: false,
-      //   date: output
-      // })
+      people.push({
+        name: name.value.replaceAll("<","&lt;").replaceAll(">","&gt;"),
+        descr: commentText.value.replaceAll("<","&lt;").replaceAll(">","&gt;"),
+        likesAmount: 0,
+        isLike: false,
+        date: output
+      })
 
 
 

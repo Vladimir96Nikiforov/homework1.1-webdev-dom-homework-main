@@ -1,11 +1,7 @@
-export let date = new Date();
-    let output =
-      String(date.getDate()) +
-      "." +
-      String(date.getMonth() + 1) +
-      "." +
-      date.getFullYear() +
-      " " +
-      date.getHours() +
-      ":" +
-      date.getMinutes();
+const helper = {
+    the: function (){
+        console.log("the");
+        }
+}
+
+export const the = helper.the;
