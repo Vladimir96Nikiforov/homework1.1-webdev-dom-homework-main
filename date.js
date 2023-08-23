@@ -1,6 +1,7 @@
 const helper = {
-    the: function (){
+    the: function res(){
         console.log("the");
+        res()
         }
 }
 
