@@ -1,4 +1,6 @@
-import {the} from './date.js';
+import {helper} from './module.js';
 
-the()
+helper.the()
+helper.postAPI()
+helper.getAPI()
 
