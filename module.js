@@ -110,7 +110,81 @@ const fetchPromise = fetch('https://wedev-api.sky.pro/api/v1/Vladimir-Nikiforov/
 
           console.log(error);
         })
+    },
+
+
+  //likes
+
+  like: function likeEventListeners() {
+    const likeElements = document.querySelectorAll(".likes");
+    for (const likeElement of likeElements) {
+      likeElement.addEventListener("click", () => {
+        const index = likeElement.dataset.like;
+        console.log(index);
+
+
+        if(people[index].isLiked === false){
+          people[index].likes++
+          people[index].isLiked = true;
+          }
+          else {
+          people[index].likes--
+          people[index].isLiked = false;
+          }
+          console.log(people[index].likes);
+          renderComments();
+      });
     }
+  },
+
+
+
+  renderComments: function renderComments () {
+
+    const likesUlHTML = people.map((comment, index) =>{
+    
+      return `
+       <li class="comment">
+      <div>${comment.author.name}</div>
+            <div>${comment.date}</div>
+          </div>
+          <div class="comment-body">
+            <div class="comment-text" id="answer" data-index=${index}>
+              ${comment.text}
+            </div>
+          </div>
+          <div class="comment-footer">
+      <div class="likes" data-like="${index}">
+              <span class="likes-counter" id="likes-counter">${comment.likes}</span>
+              <button class="like-button ${ comment.isLiked ? '-active-like' : '' }" id="likeButton"></button>
+            </div>
+          </li>
+          `;
+          // <button class="like-button ${ comment.isLike ? '-active-like' : '' }" id="likeButton"></button>
+                //${ comment.isLike ? '-active-like' : '' } это тот же if
+        })
+        .join("");
+        comments.innerHTML = likesUlHTML;
+        likeEventListeners();
+        commentEventListeners()
+      },
+
+      commentEventListeners:  function commentEventListeners(){
+        const addFormTexts = document.querySelectorAll(".comment-text");
+        for (const addFormText of addFormTexts){
+        addFormText.addEventListener("click", (event) =>{
+          event.stopPropagation()
+          console.log(addFormText.dataset.index);
+          console.log(event);
+          document.getElementById('add-form-text').value = ">" + people[addFormText.dataset.index].descr + ",";
+  
+        })
+      }
+    }
+
+
+
 }
+
 export {helper}
 
