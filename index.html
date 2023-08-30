@@ -133,7 +133,10 @@
 //     likeEventListeners();
 //     commentEventListeners()
 //   };
-  getAPI()
+
+
+
+  // getAPI()
 
 
 
@@ -184,38 +187,38 @@
   //   };
 
 
-    buttonElement.addEventListener("click", () => {
-      if (name.value === "") {
-        name.style.backgroundColor = "#ff7d7d";
-        return;
-      }
-      if (commentText.value === "") {
-        commentText.style.backgroundColor = "#ff7d7d";
-        return;
-      }
+    // buttonElement.addEventListener("click", () => {
+    //   if (name.value === "") {
+    //     name.style.backgroundColor = "#ff7d7d";
+    //     return;
+    //   }
+    //   if (commentText.value === "") {
+    //     commentText.style.backgroundColor = "#ff7d7d";
+    //     return;
+    //   }
       
 
-      let date = new Date();
+    //   let date = new Date();
   
-    let output =
-      String(date.getDate()) +z
-      "." +
-      String(date.getMonth() + 1) +
-      "." +
-      date.getFullYear() +
-      " " +
-      date.getHours() +
-      ":" +
-      date.getMinutes();
+    // let output =
+    //   String(date.getDate()) +z
+    //   "." +
+    //   String(date.getMonth() + 1) +
+    //   "." +
+    //   date.getFullYear() +
+    //   " " +
+    //   date.getHours() +
+    //   ":" +
+    //   date.getMinutes();
     
 
-      people.push({
-        name: name.value.replaceAll("<","&lt;").replaceAll(">","&gt;"),
-        descr: commentText.value.replaceAll("<","&lt;").replaceAll(">","&gt;"),
-        likesAmount: 0,
-        isLike: false,
-        date: output
-      })
+    //   people.push({
+    //     name: name.value.replaceAll("<","&lt;").replaceAll(">","&gt;"),
+    //     descr: commentText.value.replaceAll("<","&lt;").replaceAll(">","&gt;"),
+    //     likesAmount: 0,
+    //     isLike: false,
+    //     date: output
+    //   })
 
 
 
@@ -281,12 +284,24 @@
 //           console.log(error);
 //         });
 
-      likeEventListeners();
-      renderComments();
-    });
 
-      likeEventListeners();
-      renderComments();
+
+
+
+    //   likeEventListeners();
+    //   renderComments();
+
+
+
+    // });
+
+    //   likeEventListeners();
+    //   renderComments();
+
+
+
+
+
 
     // function likeEventListeners() {
     //   const likeElements = document.querySelectorAll(".likes");
@@ -324,14 +339,11 @@
   //   }
   // }
 
-  commentEventListeners()
+  // commentEventListeners()
 
 
 
-    renderComments();
-    likeEventListeners();
+  //   renderComments();
+  //   likeEventListeners();
   </script>
 </html>
-
-
-

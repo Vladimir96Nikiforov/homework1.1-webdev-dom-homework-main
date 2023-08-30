@@ -32,7 +32,7 @@ getAPI: function getAPI(){
     .then((responseData) => {
         console.log(responseData);
         people = responseData.comments; //comments это ключ массива в документации
-        renderComments()
+        this.renderComments()
       })
     .then((data) => {
       buttonElement.disabled = false;
@@ -132,7 +132,7 @@ const fetchPromise = fetch('https://wedev-api.sky.pro/api/v1/Vladimir-Nikiforov/
           people[index].isLiked = false;
           }
           console.log(people[index].likes);
-          renderComments();
+          this.renderComments();
       });
     }
   },
@@ -165,8 +165,8 @@ const fetchPromise = fetch('https://wedev-api.sky.pro/api/v1/Vladimir-Nikiforov/
         })
         .join("");
         comments.innerHTML = likesUlHTML;
-        likeEventListeners();
-        commentEventListeners()
+        this.likeEventListeners();
+        this.commentEventListeners()
       },
 
       commentEventListeners:  function commentEventListeners(){
@@ -180,10 +180,51 @@ const fetchPromise = fetch('https://wedev-api.sky.pro/api/v1/Vladimir-Nikiforov/
   
         })
       }
-    }
+    },
 
 
 
+
+    
+
+
+    time: 
+    function time() {
+    buttonElement.addEventListener("click", () => {
+      if (name.value === "") {
+        name.style.backgroundColor = "#ff7d7d";
+        return;
+      }
+      if (commentText.value === "") {
+        commentText.style.backgroundColor = "#ff7d7d";
+        return;
+      }
+      
+
+      let date = new Date();
+  
+    let output =
+      String(date.getDate()) +"z"
+      "." +
+      String(date.getMonth() + 1) +
+      "." +
+      date.getFullYear() +
+      " " +
+      date.getHours() +
+      ":" +
+      date.getMinutes();
+    
+
+      people.push({
+        name: name.value.replaceAll("<","&lt;").replaceAll(">","&gt;"),
+        descr: commentText.value.replaceAll("<","&lt;").replaceAll(">","&gt;"),
+        likesAmount: 0,
+        isLike: false,
+        date: output
+      })
+    })
+
+  }
 }
 
 export {helper}
