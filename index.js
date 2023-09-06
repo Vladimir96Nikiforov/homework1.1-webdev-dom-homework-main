@@ -1,9 +1,9 @@
 import {helper} from './module.js';
 
-helper.the()
+// helper.the()
 helper.postAPI()
-helper.getAPI()
-helper.like()
-helper.time()
-helper.renderComments()
-helper.commentEventListeners()
+// helper.getAPI()
+// helper.like()
+// helper.time()
+// helper.renderComments()
+// helper.commentEventListeners()

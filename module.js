@@ -137,6 +137,13 @@ const fetchPromise = fetch('https://wedev-api.sky.pro/api/v1/Vladimir-Nikiforov/
     }
   },
 
+handlinerButton: function handlinerButton(){
+  const buttonWrite = document.querySelector('.add-form-button');
+  buttonWrite.addEventListener('click',() => {
+    this.postAPI;
+    this.renderComments;
+  })
+},
 
 
   renderComments: function renderComments () {
@@ -165,7 +172,8 @@ const fetchPromise = fetch('https://wedev-api.sky.pro/api/v1/Vladimir-Nikiforov/
         })
         .join("");
         comments.innerHTML = likesUlHTML;
-        this.likeEventListeners();
+        this.like();
+        this.like.likeEventListeners();
         this.commentEventListeners()
       },
 
@@ -177,8 +185,10 @@ const fetchPromise = fetch('https://wedev-api.sky.pro/api/v1/Vladimir-Nikiforov/
           console.log(addFormText.dataset.index);
           console.log(event);
           document.getElementById('add-form-text').value = ">" + people[addFormText.dataset.index].descr + ",";
-  
-        })
+         
+          // this.postAPI();
+          // this.renderComments();
+        });
       }
     },
 
