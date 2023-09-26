@@ -1,3 +1,5 @@
+const host = 'https://wedev-api.sky.pro/api/v2/Vladimir-Nikiforov/comments';
+const token = 'Bearer asb4c4boc86gasb4c4boc86g37k3bk3cg3c03ck3k37w3cc3bo3b8';
 const helper = {
   the: function the() {
     alert('the');
@@ -8,12 +10,22 @@ const helper = {
     buttonElement.disabled = true;
     buttonElement.textContent = 'Комментарии загружаются...';
     const fetchPromiseGet = fetch(
-      'https://wedev-api.sky.pro/api/v1/Vladimir-Nikiforov/comments',
+      host,
       {
         method: 'GET',
+        headers:{
+          Authorization: token,
+        }
       }
     );
     fetchPromiseGet
+      .then((response) => {
+        if(response.status === 401){
+          pass = prompt ("Введите верный пароль");
+          this.renderComments();
+          throw new Error("нет авторизации")
+        }
+      })
       .then((response) => {
         if (!response.ok) {
           if (response.status === 500) {
@@ -52,9 +64,12 @@ const helper = {
     buttonElement.disabled = true;
     buttonElement.textContent = 'Элемент добавляется...';
     const fetchPromise = fetch(
-      'https://wedev-api.sky.pro/api/v1/Vladimir-Nikiforov/comments',
+      host,
       {
         method: 'POST',
+        headers:{
+          Authorization: token,
+        },
         body: JSON.stringify({
           text: commentText.value,
           name: name.value,
@@ -139,34 +154,147 @@ const helper = {
   },
 
   renderComments: function renderComments() {
+
     const likesUlHTML = people
-      .map((comment, index) => {
-        return `
-       <li class="comment">
-      <div>${comment.author.name}</div>
-            <div>${comment.date}</div>
+    .map((comment, index) => {
+      return `
+     <li class="comment">
+    <div>${comment.author.name}</div>
+          <div>${comment.date}</div>
+        </div>
+        <div class="comment-body">
+          <div class="comment-text" id="answer" data-index=${index}>
+            ${comment.text}
           </div>
-          <div class="comment-body">
-            <div class="comment-text" id="answer" data-index=${index}>
-              ${comment.text}
-            </div>
+        </div>
+        <div class="comment-footer">
+    <div class="likes" data-like="${index}">
+            <span class="likes-counter" id="likes-counter">${
+              comment.likes
+            }</span>
+            <button class="like-button ${
+              comment.isLiked ? '-active-like' : ''
+            }" id="likeButton"></button>
           </div>
-          <div class="comment-footer">
-      <div class="likes" data-like="${index}">
-              <span class="likes-counter" id="likes-counter">${
-                comment.likes
-              }</span>
-              <button class="like-button ${
-                comment.isLiked ? '-active-like' : ''
-              }" id="likeButton"></button>
-            </div>
-          </li>
-          `;
-        // <button class="like-button ${ comment.isLike ? '-active-like' : '' }" id="likeButton"></button>
-        //${ comment.isLike ? '-active-like' : '' } это тот же if
-      })
-      .join('');
-    comments.innerHTML = likesUlHTML;
+        </li>
+        `;
+      // <button class="like-button ${ comment.isLike ? '-active-like' : '' }" id="likeButton"></button>
+      //${ comment.isLike ? '-active-like' : '' } это тот же if
+    })
+    .join('');
+
+
+
+    const appHTML = `
+    <div class="container" >
+    <ul class="comments" id="comments" >
+
+
+
+    <!-- <li class="comment">
+       <div class="comment-header">
+         <div>Глеб Фокин</div>
+         <div>12.02.22 12:18</div>
+       </div>
+       <div class="comment-body">
+         <div class="comment-text" id="answer">
+           Это будет первый комментарий на этой странице
+         </div>
+       </div>
+       <div class="comment-footer">
+         <div class="likes" data-like="3">
+           <span class="likes-counter" id="likes-counter">3</span>
+           <button class="like-button" id="likeButton"></button>
+         </div>
+       </div>
+     </li>
+     <li class="comment">
+       <div class="comment-header">
+         <div>Варвара Н.</div>
+         <div>13.02.22 19:22</div>
+       </div>
+       <div class="comment-body" >
+         <div class="comment-text" id="answer">
+           Мне нравится как оформлена эта страница! ❤
+         </div>
+       </div>
+       <div class="comment-footer">
+         <div class="likes" data-like="75">
+           <span class="likes-counter" id="likes-counter">75</span>
+           <button class="like-button -active-like" id="likeButton"></button>
+         </div>
+       </div>
+     </li> -->
+
+
+
+   </ul>
+
+
+
+
+   <div class="add-form">
+     <input
+       type="text"
+       class="add-form-name"
+       placeholder="Введите ваше имя"
+       id="add-form-name"
+       ;
+     />
+     <textarea
+       type="textarea"
+       class="add-form-text"
+       id="add-form-text"
+       placeholder="Введите ваш коментарий"
+       rows="4"
+       id="add-form-text"
+     ></textarea>
+     <div class="add-form-row">
+       <button class="add-form-button" id="add-button">Написать</button>
+       <button class="add-form-button" id="delete-button">Удалить</button>
+     </div>
+   </div>
+
+
+   <div class="add-form">
+     <input
+       type="text"
+       class="add-form-name"
+       placeholder="Введите ваш логин"
+       id="add-form-login"
+       ;
+     />
+     <br>
+     <input
+       type="text"
+       class="add-form-name"
+       placeholder="Введите ваш пароль"
+       id="add-form-pass"
+       ;
+     />
+       <button class="add-form-button" id="add-button-auth">Войти</button>
+     </div>
+   </div>
+
+ </div>
+    `
+
+
+    const name = document.getElementById("add-form-name");
+    const commentText = document.getElementById("add-form-text");
+    const comments = document.getElementById("comments");
+    const buttonElement = document.getElementById("add-button");
+    const likeButton = document.getElementById("likeButton");
+    const likesContainer = document.getElementById("likes-container");
+    const addFormTexts = document.getElementById("add-form-text");
+
+
+
+
+    let people = [
+    ];
+
+    comments.innerHTML = appHTML;
     this.handlinerButton();
     this.like();
     this.commentEventListeners();
