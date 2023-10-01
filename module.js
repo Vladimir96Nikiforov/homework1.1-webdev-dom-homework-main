@@ -7,6 +7,7 @@ const helper = {
 
   // Получаем с сервера API Get
   getAPI: function getAPI() {
+    const buttonElement = elem.querySelectorAll(buttonElement);
     buttonElement.disabled = true;
     buttonElement.textContent = 'Комментарии загружаются...';
     const fetchPromiseGet = fetch(
