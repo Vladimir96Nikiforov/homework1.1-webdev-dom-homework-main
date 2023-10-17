@@ -1,5 +1,7 @@
 const host = 'https://wedev-api.sky.pro/api/v2/Vladimir-Nikiforov/comments';
 const token = 'Bearer asb4c4boc86gasb4c4boc86g37k3bk3cg3c03ck3k37w3cc3bo3b8';
+const mailAppHTML = document.getElementById('appHTML');
+let people;
 const helper = {
   the: function the() {
     alert('the');
@@ -22,40 +24,30 @@ const helper = {
     fetchPromiseGet
       .then((response) => {
         if(response.status === 401){
-          pass = prompt ("Введите верный пароль");
+          const pass = prompt ("Введите верный пароль");
           this.renderComments();
           throw new Error("нет авторизации")
         }
-      })
-      .then((response) => {
-        if (!response.ok) {
           if (response.status === 500) {
             /* текст ошибки */
             throw new Error('Ошибка 500');
           }
-        }
         /*возвращаем данные при успешном выполнеии запроса*/
         return response.json();
       })
-
       .then((responseData) => {
         console.log(responseData);
         people = responseData.comments; //comments это ключ массива в документации
-        this.renderComments();
-      })
-      .then((data) => {
-        buttonElement.disabled = false;
-        buttonElement.textContent = 'Написать';
+        this.renderComments(people);
       })
       .catch((error) => {
-        buttonElement.disabled = false;
-        buttonElement.textContent = 'Написать';
+        console.log(error);
         if (error.message === 'Ошибка 500') {
           alert(
             'Ошибка при получении комментариев, пожалуйста, попробуйте позже'
           );
         }
-        console.error(error.message);
+        // console.error(error.message);
       });
     /* тут возможна только 500 ошибка*/
   },
@@ -154,7 +146,7 @@ const helper = {
     });
   },
 
-  renderComments: function renderComments() {
+  renderComments: function renderComments(people) {
 
     const likesUlHTML = people
     .map((comment, index) => {
@@ -278,24 +270,19 @@ const helper = {
    </div>
 
  </div>
-    `
-
+    `;
+    mailAppHTML.innerHTML = appHTML;
 
     const name = document.getElementById("add-form-name");
     const commentText = document.getElementById("add-form-text");
     const comments = document.getElementById("comments");
-    const buttonElement = document.getElementById("add-button");
     const likeButton = document.getElementById("likeButton");
     const likesContainer = document.getElementById("likes-container");
     const addFormTexts = document.getElementById("add-form-text");
+    const buttonElement = document.getElementById("add-button");
+    buttonElement.disabled = true;
+    buttonElement.textContent = 'Комментарий загружается...';
 
-
-
-
-    let people = [
-    ];
-
-    comments.innerHTML = appHTML;
     this.handlinerButton();
     this.like();
     this.commentEventListeners();
