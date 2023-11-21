@@ -1,9 +1,3 @@
-import {helper} from './module.js';
+import { getAPI } from "./api.js";
 
-// helper.the()
-helper.getAPI()
-// helper.getAPI()
-// helper.like()
-// helper.time()
-// helper.renderComments()
-// helper.commentEventListeners()
+getAPI()
